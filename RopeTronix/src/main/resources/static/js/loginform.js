@@ -4,6 +4,8 @@ const registerBtn = document.getElementById('register');
 const loginBtn = document.getElementById('login');
 
 function signUp() {
+
+
 }
 
 function signIn() {
