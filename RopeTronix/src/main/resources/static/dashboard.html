@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>RopeTronix Dashboard</title>
+</head>
+<body>
+<header class="header">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><h4>RopeTronix</h4></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <button class="nav-link btn" type="button" style="margin-right: 50px;"><i class="bi bi-bell-fill"></i></button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link btn" type="button" onclick="logOut()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="sidebar">
+    <div class="menu-set">
+        <img src="image/logo.png" alt="LOGO" style="margin-top: -140px;height: 100px;width: 150px;margin-left: 45px;">
+        <button type="button"><i class="bi bi-house-dash"></i> Dashboard</button>
+        <button type="button"><i class="bi bi-puzzle-fill"></i> Manage Pieces</button>
+        <button type="button"><i class="bi bi-card-text"></i> Daily Productivity</button>
+        <button type="button"><i class="bi bi-thermometer-half"></i> Temperature Details</button>
+        <button type="button"><i class="bi bi-gear"></i> System settings</button>
+        <button type="button"><i class="bi bi-person-lines-fill"></i> Profile settings</button>
+    </div>
+
+</div>
+
+<div class="content">
+    <!-- Your content goes here -->
+</div>
+<script src="js/dashboard.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+
+.sidebar {
+    height: 100vh;
+    background-color: #5dd042;
+    color: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding-top: 60px;
+    width: 250px;
+}
+
+.sidebar button {
+    color: #fff;
+    background-color: transparent;
+    border: none;
+    text-align: left;
+    padding: 15px;
+    width: 100%;
+    font-size: 16px;
+}
+
+.sidebar button:hover {
+    background-color: #495057;
+    cursor: pointer;
+}
+
+.content {
+    margin-left: 250px;
+    padding: 20px;
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 250px;
+    width: calc(100% - 250px);
+    background-color: #21830d;
+    color: #fff;
+    padding: 15px;
+    z-index: 1000;
+}
+
+.header .navbar-brand {
+    color: #fff;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+
+    .sidebar button {
+        text-align: center;
+        padding: 10px;
+    }
+
+    .header {
+        left: 0;
+        width: 100%;
+    }
+
+    .content {
+        margin-left: 0;
+        padding: 10px;
+    }
+}
+
+.menu-set{
+    margin-top: 80px;
+}

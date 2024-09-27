@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,76 +6,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-
     <title>RopeTronix Login Page</title>
 </head>
 <body>
-
-    <div class="container" id="container">
-        <div class="form-container sign-up">
-            <form>
-                <h2>RopeTronix System</h2>
-                <br/>
-                <h3>Sign Up</h3>
-
-                <br/>
-
-                <label for="firstname">
-                    <input type="text" placeholder="FirstName" id="firstname">
-                </label>
-                <label for="lastname">
-                    <input type="text" placeholder="LastName" id="lastname">
-                </label>
-                <label for="email">
-                    <input type="email" placeholder="Email" id="email">
-                </label>
-                <label for="password">
-                    <input type="password" placeholder="Password" id="password">
-                </label>
-
-                <button onclick="signUp()">Sign Up</button>
-            </form>
-        </div>
-        <div class="form-container sign-in">
-            <form>
-                <h2>RopeTronix System</h2>
-                <br/>
-                <h3>Sign In</h3>
-
-                <br/>
-
-                <label for="_email">
-                    <input type="email" placeholder="Email" id="_email">
-                </label>
-                <label for="_password">
-                    <input type="password" placeholder="Password" id="_password">
-                </label>
-
-                <a href="#">Forget Your Password?</a>
-                <button onclick="signIn()">Sign In</button>
-            </form>
-        </div>
-
-        <div class="toggle-container">
-            <div class="toggle">
-                <div class="toggle-panel toggle-left">
-
-                    <h2>Welcome</h2>
-                    <p>Already have an account, Enter your email and password to log in !</p>
-                    <button class="hidden" id="login">Sign In</button>
-                </div>
-                <div class="toggle-panel toggle-right">
-
-                    <h2>Welcome</h2>
-                    <p>If you don't have an account, please register with your personal details to access all system features !</p>
-                    <button class="hidden" id="register">Sign Up</button>
-                </div>
-            </div>
-        </div>
-
+<div class="container" id="container">
+    <div class="form-container sign-up">
+        <form id="signUpForm">
+            <h2>RopeTronix System</h2>
+            <br/>
+            <h3>Sign Up</h3>
+            <br/>
+            <label for="firstname">
+                <input type="text" placeholder="FirstName" id="firstname">
+            </label>
+            <label for="lastname">
+                <input type="text" placeholder="LastName" id="lastname">
+            </label>
+            <label for="email2">
+                <input type="email" placeholder="Email" id="email2">
+            </label>
+            <label for="password2">
+                <input type="password" placeholder="Password" id="password2">
+            </label>
+            <button type="button" onclick="signUp()">Sign Up</button>
+        </form>
+    </div>
+    <div class="form-container sign-in">
+        <form id="signInForm">
+            <h2>RopeTronix System</h2>
+            <br/>
+            <h3>Sign In</h3>
+            <br/>
+            <label for="_email">
+                <input type="email" placeholder="Email" id="_email" name="_email">
+            </label>
+            <label for="_password">
+                <input type="password" placeholder="Password" id="_password" name="_password">
+            </label>
+            <button type="button" onclick="signIn()">Sign In</button>
+        </form>
     </div>
 
-    <script src="js/login.js"></script>
+    <div class="toggle-container">
+        <div class="toggle">
+            <div class="toggle-panel toggle-left">
 
+                <h2>Welcome</h2>
+                <p>Already have an account, Enter your email and password to log in !</p>
+                <button class="hidden" id="login">Sign In</button>
+            </div>
+            <div class="toggle-panel toggle-right">
+
+                <h2>Welcome</h2>
+                <p>If you don't have an account, please register with your personal details to access all system features !</p>
+                <button class="hidden" id="register">Sign Up</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="js/loginform.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>
