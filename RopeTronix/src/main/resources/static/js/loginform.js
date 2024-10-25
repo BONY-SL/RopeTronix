@@ -92,7 +92,6 @@ function signUp() {
 }
 
 function signIn() {
-
     const email = document.getElementById("_email").value;
     const password = document.getElementById("_password").value;
 
@@ -100,31 +99,49 @@ function signIn() {
         showErrorAlert2("Email And Password Required!");
         return false;
     }
-    const user = {
-            email: email,
-            password: password
-        };
 
-        fetch("http://localhost:8080/repotronix/login", {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(user)
-        }).then(response => {
-            if (response.ok) {
-                console.log(response);
+    const user = {
+        email: email,
+        password: password
+    };
+
+    fetch("http://localhost:8080/repotronix/login", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(user)
+    }).then(response => {
+        if (response.ok) {
+            response.json().then(data => {
+
+
+                saveUser(data);
+
+                // Redirect to dashboard
                 window.location.href = 'dashboard.html';
-            } else {
+            });
+        } else {
+            response.json().then(data => {
                 Swal.fire({
                     icon: 'error',
                     title: 'Incorrect Information',
-                    text: 'Email and Password Not Matched.',
+                    text: data.message || "Invalid Username OR Password",
                     confirmButtonColor: '#5dd042',
                     confirmButtonText: 'OK'
                 });
-            }
+            });
+        }
+    }).catch(error => {
+        console.error("Error:", error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Something went wrong. Please try again later.',
+            confirmButtonColor: '#5dd042',
+            confirmButtonText: 'OK'
         });
+    });
 }
 
 registerBtn.addEventListener('click', () => {
@@ -134,3 +151,16 @@ registerBtn.addEventListener('click', () => {
 loginBtn.addEventListener('click', () => {
     container.classList.remove("active");
 });
+
+function saveUser(user) {
+    localStorage.setItem('user', JSON.stringify(user));
+}
+
+function getUser() {
+    const user = localStorage.getItem('user');
+    return user ? JSON.parse(user) : null;
+}
+
+function clearUser() {
+    localStorage.removeItem('user');
+}

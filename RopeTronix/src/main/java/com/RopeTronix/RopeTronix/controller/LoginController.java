@@ -20,8 +20,7 @@ public class LoginController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequestDto user) {
 
-        System.out.println(user.toString());
-        return ResponseEntity.ok(HttpStatus.OK);
+        return userService.login(user);
     }
 
     @PostMapping("/register")
