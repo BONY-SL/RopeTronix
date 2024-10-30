@@ -6,15 +6,34 @@
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
     <title>RopeTronix Dashboard</title>
-
     <style>
+        .container {
+            max-width: 1100px;
+            margin-left: 180px;
+            text-align: center;
+        }
+        #datePicker {
+            margin-bottom: 20px;
+        }
+        #chartContainer {
+            height: 500px;
+            width: 1100px;
+        }
         .content {
             width: 100%;
             height: 100%;
-            margin-top: 100px;
+            margin-top: 70px;
             padding: 5px;
-            margin-left: 260px;
+            margin-left: 200px;
+        }
+        .section {
+            display: none; /* Hide all sections by default */
+        }
+        .active {
+            display: block; /* Show active section */
         }
 
         @media (max-width: 768px) {
@@ -66,47 +85,166 @@
 
 <div class="sidebar">
     <div class="menu-set">
-        <img src="image/logo.png" alt="LOGO" style="margin-top: -140px;height: 100px;width: 150px;margin-left: 45px;">
-        <button type="button" onclick="showSection('main_dashboard.html')"><i class="bi bi-house-dash"></i> Dashboard</button>
-        <button type="button" onclick="showSection('manage_pieces.html')"><i class="bi bi-puzzle-fill"></i> Manage Pieces</button>
-        <button type="button" onclick="showSection('daily_productivity.html')"><i class="bi bi-card-text"></i> Daily Productivity</button>
-        <button type="button" onclick="showSection('temperature_details.html')"><i class="bi bi-thermometer-half"></i> Temperature Details</button>
-        <button type="button" onclick="showSection('system_settings.html')"><i class="bi bi-gear"></i> System settings</button>
-        <button type="button" onclick="showSection('profile_settings.html')"><i class="bi bi-person-lines-fill"></i> Profile settings</button>
+        <button type="button" onclick="showSection('main_dashboard')"><i class="bi bi-house-dash"></i> Dashboard</button>
+        <button type="button" onclick="showSection('manage_pieces')"><i class="bi bi-puzzle-fill"></i> Manage Pieces</button>
+        <button type="button" onclick="showSection('daily_productivity')"><i class="bi bi-card-text"></i> Daily Productivity</button>
+        <button type="button" onclick="showSection('temperature_details')"><i class="bi bi-thermometer-half"></i> Temperature Details</button>
+        <button type="button" onclick="showSection('system_settings')"><i class="bi bi-gear"></i> System settings</button>
+        <button type="button" onclick="showSection('profile_settings')"><i class="bi bi-person-lines-fill"></i> Profile settings</button>
     </div>
 </div>
-
 
 <div class="content">
 
 </div>
+<div class="content">
+
+    <!-- Main Dashboard Section -->
+    <div id="main_dashboard" class="section active">
+        <div class="dashboard-container">
+            <div class="dashboard-item">
+                <div class="icon">
+                    <img src="path/to/temperature-icon.png" alt="Temperature Icon">
+                </div>
+                <div class="data">
+                    <h3>Current Temperature</h3>
+                    <p class="value">75°C</p>
+                </div>
+            </div>
+
+            <div class="dashboard-item">
+                <div class="icon">
+                    <img src="path/to/pieces-icon.png" alt="Pieces Icon">
+                </div>
+                <div class="data">
+                    <h3>Current Pieces Count</h3>
+                    <p class="value">250</p>
+                </div>
+            </div>
+
+            <div class="dashboard-item">
+                <div class="icon">
+                    <img src="path/to/operation-time-icon.png" alt="Operation Time Icon">
+                </div>
+                <div class="data">
+                    <h3>Operation Time</h3>
+                    <p class="value">5 Hours</p>
+                </div>
+            </div>
+
+            <div class="dashboard-item">
+                <div class="icon">
+                    <img src="path/to/humidity-icon.png" alt="Humidity Icon">
+                </div>
+                <div class="data">
+                    <h3>Humidity Value</h3>
+                    <p class="value">45%</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
+    <!-- Manage Pieces Section -->
+    <div id="manage_pieces" class="section">
+
+    </div>
+
+    <!-- Daily Productivity Section -->
+    <div id="daily_productivity" class="section">
+        <div class="container search-container" style="align-content: center">
+            <form class="form-inline justify-content-center">
+                <div class="form-group mb-2">
+                    <label for="date" class="sr-only">Date</label>
+                    <input type="date" class="form-control" id="date" placeholder="Select Date">
+                </div>
+                <button type="button" class="btn btn-primary mb-2 ml-2" onclick="search()">Search</button>
+            </form>
+        </div>
+
+        <div class="container table-container" style="align-content: center">
+            <div class="table-responsive">
+                <table id="productionTable" class="table table-bordered table-hover">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th>Date</th>
+                        <th>Pieces Amount</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr><td>2024-10-01</td><td>120</td></tr>
+                    <tr><td>2024-10-02</td><td>150</td></tr>
+                    <tr><td>2024-10-03</td><td>130</td></tr>
+                    <tr><td>2024-10-04</td><td>125</td></tr>
+                    <tr><td>2024-10-05</td><td>140</td></tr>
+                    <tr><td>2024-10-06</td><td>135</td></tr>
+                    <tr><td>2024-10-07</td><td>145</td></tr>
+                    <tr><td>2024-10-08</td><td>155</td></tr>
+                    <tr><td>2024-10-09</td><td>160</td></tr>
+                    <tr><td>2024-10-10</td><td>165</td></tr>
+                    <tr><td>2024-10-11</td><td>170</td></tr>
+                    <tr><td>2024-10-12</td><td>175</td></tr>
+                    <tr><td>2024-10-13</td><td>180</td></tr>
+                    <tr><td>2024-10-14</td><td>185</td></tr>
+                    <tr><td>2024-10-15</td><td>190</td></tr>
+                    <tr><td>2024-10-16</td><td>195</td></tr>
+                    <tr><td>2024-10-17</td><td>200</td></tr>
+                    <tr><td>2024-10-18</td><td>205</td></tr>
+                    <tr><td>2024-10-19</td><td>210</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Temperature Details Section -->
+    <div id="temperature_details" class="section">
+        <div class="container">
+            <label for="datePicker"></label>
+            <input type="date" id="datePicker" class="form-control w-50 mx-auto">
+            <div id="chartContainer"></div>
+        </div>
+    </div>
+
+    <!-- System Settings Section -->
+    <div id="system_settings" class="section">
+
+    </div>
+
+    <!-- Profile Settings Section -->
+    <div id="profile_settings" class="section">
+
+    </div>
+</div>
+
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
-    function showSection(filename) {
-        fetch(filename)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Error loading page');
-                }
-                return response.text();
-            })
-            .then(html => {
-                document.querySelector('.content').innerHTML = html;
-            })
-            .catch(error => {
-                document.querySelector('.content').innerHTML = `<p>${error.message}</p>`;
-            });
+    function showSection(sectionId) {
+        // Hide all sections
+        const sections = document.querySelectorAll('.section');
+        sections.forEach(section => {
+            section.classList.remove('active');
+        });
+
+        // Show the selected section
+        const selectedSection = document.getElementById(sectionId);
+        if (selectedSection) {
+            selectedSection.classList.add('active');
+        }
     }
 
-    // Load the default section (e.g., 'dashboard.html')
-    showSection('main_dashboard.html');
-
+    // Load the default section (Main Dashboard)
+    showSection('main_dashboard');
 </script>
 
 <script src="js/dashboard.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
 </body>
 </html>

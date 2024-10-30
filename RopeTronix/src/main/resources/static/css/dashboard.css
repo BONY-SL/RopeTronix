@@ -2,7 +2,7 @@
 
 .sidebar {
     height: 100vh;
-    background-color: #5dd042;
+    background-color: #730a0a;
     color: #fff;
     position: fixed;
     top: 0;
@@ -31,7 +31,7 @@
     top: 0;
     left: 250px;
     width: calc(100% - 250px);
-    background-color: #21830d;
+    background-color: #726f6f;
     color: #fff;
     padding: 15px;
     z-index: 1000;
@@ -45,4 +45,54 @@
 
 .menu-set{
     margin-top: 80px;
+}
+.table-container {
+    margin-top: 10px;
+    align-items: center;
+    margin-left: 100px;
+}
+.table th, .table td {
+    text-align: center;
+    vertical-align: middle;
+}
+.search-container {
+    margin-top: 30px;
+    margin-left: -330px;
+    align-items: center;
+}
+
+#main_dashboard {
+    padding: 20px;
+}
+
+.dashboard-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* space between items */
+}
+
+.dashboard-item {
+    flex: 1 1 calc(25% - 20px); /* Four items in a row with gap */
+    background: #f9f9f9; /* Light background for items */
+    border: 1px solid #ddd; /* Border for items */
+    border-radius: 10px; /* Rounded corners */
+    padding: 15px;
+    text-align: center; /* Center align text */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+}
+
+.dashboard-item .icon img {
+    width: 50px; /* Size of the icon */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.dashboard-item h3 {
+    margin: 10px 0 5px;
+    font-size: 1.2em; /* Title size */
+}
+
+.dashboard-item .value {
+    font-size: 1.5em; /* Value size */
+    font-weight: bold; /* Bold text */
+    color: #333; /* Dark text color */
 }
