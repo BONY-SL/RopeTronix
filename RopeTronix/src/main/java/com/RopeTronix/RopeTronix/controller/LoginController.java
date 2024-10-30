@@ -1,6 +1,7 @@
 package com.RopeTronix.RopeTronix.controller;
 
 import com.RopeTronix.RopeTronix.dto.LoginRequestDto;
+import com.RopeTronix.RopeTronix.dto.RegistrationRequestDto;
 import com.RopeTronix.RopeTronix.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,7 +20,14 @@ public class LoginController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequestDto user) {
 
-        System.out.println(user.toString());
+        return userService.login(user);
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody RegistrationRequestDto requestDto){
+
+        userService.register(requestDto);
         return ResponseEntity.ok(HttpStatus.OK);
+
     }
 }

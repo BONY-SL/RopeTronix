@@ -22,9 +22,9 @@ body{
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
     position: relative;
     overflow: hidden;
-    width: 850px;
-    max-width: 100%;
-    min-height: 550px;
+    width: 600px;
+    max-width: 60%;
+    min-height: 750px;
 }
 
 .container p{
@@ -35,7 +35,7 @@ body{
 }
 
 .container button{
-    background-color: #2ca10f;
+    background-color: #910404;
     color: #fff;
     font-size: 12px;
     padding: 10px 45px;
@@ -64,7 +64,7 @@ body{
 }
 
 .container input{
-    background-color: #bdfdae;
+    background-color: #9d9d9d;
     border: none;
     margin: 8px 0;
     padding: 10px 15px;
@@ -135,7 +135,7 @@ body{
 
 .toggle{
     height: 100%;
-    background: #236b20 linear-gradient(to right, #12a21a, #236b20);
+    background: #7e0b0b linear-gradient(to right, #6e1717, #a91e1e);
     color: #fff;
     position: relative;
     left: -100%;

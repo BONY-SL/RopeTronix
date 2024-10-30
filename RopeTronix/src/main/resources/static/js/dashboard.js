@@ -1,3 +1,4 @@
+
 function logOut() {
 
     Swal.fire({

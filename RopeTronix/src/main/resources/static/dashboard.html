@@ -6,13 +6,158 @@
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
+    <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js"></script>
     <title>RopeTronix Dashboard</title>
+    <style>
+        .container {
+            max-width: 1100px;
+            margin-left: 180px;
+            text-align: center;
+        }
+        #datePicker {
+            margin-bottom: 20px;
+        }
+        #chartContainer {
+            height: 500px;
+            width: 1100px;
+        }
+        .content {
+            width: 100%;
+            height: 100%;
+            margin-top: 60px;
+            padding: 5px;
+            margin-left: 200px;
+        }
+        .section {
+            display: none;
+        }
+        .active {
+            display: block; /* Show active section */
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            .sidebar button {
+                text-align: center;
+                padding: 10px;
+            }
+
+            .header {
+                left: 0;
+                width: 100%;
+            }
+
+            .content {
+                margin-top: 0;
+                margin-left: 0;
+                padding: 5px;
+            }
+        }
+        .warning-bubble {
+            background-color: red;
+            color: white;
+            border-radius: 8px;
+            padding: 4px 8px;
+            margin-left: 10px;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        #totalPieces {
+            margin-top: 20px;
+            padding: 10px 15px;
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+        }
+
+        .btn-black {
+            background-color: #000;
+            color: #fff;
+            border: none;
+        }
+
+        .btn-black:hover {
+            background-color: #333; /* Darker shade on hover */
+            color: #fff; /* Ensure text remains white on hover */
+        }
+
+        .container_profile {
+            max-width: 600px;
+            margin-left: 450px;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-top: -5px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="password"]:focus {
+            border-color: #474b4b;
+        }
+
+        .btn3 {
+            display: inline-block;
+            width: 100%;
+            padding: 10px;
+            background-color: #474b4b;
+            color: black;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .btn3:hover {
+            background-color: #000000;
+            color: white;
+        }
+
+    </style>
 </head>
 <body>
 <header class="header">
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#"><h4>RopeTronix</h4></a>
+            <a class="navbar-brand" href="#"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -32,22 +177,190 @@
 
 <div class="sidebar">
     <div class="menu-set">
-        <img src="image/logo.png" alt="LOGO" style="margin-top: -140px;height: 100px;width: 150px;margin-left: 45px;">
-        <button type="button"><i class="bi bi-house-dash"></i> Dashboard</button>
-        <button type="button"><i class="bi bi-puzzle-fill"></i> Manage Pieces</button>
-        <button type="button"><i class="bi bi-card-text"></i> Daily Productivity</button>
-        <button type="button"><i class="bi bi-thermometer-half"></i> Temperature Details</button>
-        <button type="button"><i class="bi bi-gear"></i> System settings</button>
-        <button type="button"><i class="bi bi-person-lines-fill"></i> Profile settings</button>
-    </div>
+        <img src="image/EcoTech-removebg-preview.png" alt="Logo" style="width: 250px;height: 250px;margin-top: -170px">
 
+        <button type="button" onclick="showSection('main_dashboard')"><i class="bi bi-house-dash"></i> Dashboard</button>
+<!--        <button type="button" onclick="showSection('manage_pieces')"><i class="bi bi-puzzle-fill"></i> Manage Pieces</button>-->
+        <button type="button" onclick="showSection('daily_productivity')"><i class="bi bi-card-text"></i> Daily Productivity</button>
+        <button type="button" onclick="showSection('temperature_details')"><i class="bi bi-thermometer-half"></i> Temperature Details</button>
+<!--        <button type="button" onclick="showSection('system_settings')"><i class="bi bi-gear"></i> System settings</button>-->
+        <button type="button" onclick="showSection('profile_settings')"><i class="bi bi-person-lines-fill"></i> Profile settings</button>
+    </div>
 </div>
 
 <div class="content">
-    <!-- Your content goes here -->
+
 </div>
-<script src="js/dashboard.js"></script>
+<div class="content">
+
+    <!-- Main Dashboard Section -->
+    <div id="main_dashboard" class="section active">
+
+        <table class="dashboard-table">
+            <tr>
+                <td colspan="3" class="current-time" style="text-align: center; font-size: 1.5em; font-weight: bold;margin-bottom: 20px"></td>
+            </tr>
+            <tr>
+                <td class="dashboard-item">
+                    <div class="icon">
+                        <img src="image/temperature-icon.jpg" alt="Temperature Icon">
+                    </div>
+                    <div class="data">
+                        <h3>Current Temperature</h3>
+                        <p class="value"><span id="temperature"></span>&#160;°C
+                            <span id="tempWarning" class="warning-bubble" style="display: none;">High Temp!</span>
+                        </p>
+                    </div>
+                </td>
+                <td rowspan="2" style="background-color: #efa0a0;">
+                </td>
+                <td class="dashboard-item">
+                    <div class="icon">
+                        <img src="image/pngtree-elastic-icon-soft-web-coil-vector-png-image_46057688.jpg" alt="Pieces Icon">
+                    </div>
+                    <div class="data">
+                        <h3>Current Pieces Count</h3>
+                        <p class="value" ><span id="pieceCount"></span></p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="dashboard-item">
+                    <div class="icon">
+                        <img src="image/istockphoto-1358979213-612x612.jpg" alt="Operation Time Icon">
+                    </div>
+                    <div class="data">
+                        <h3>Operating Time</h3>
+                        <p class="value" ><span id="operationTime"></span> &#160;</p>
+                    </div>
+                </td>
+                <td class="dashboard-item">
+                    <div class="icon">
+                        <img src="image/hm.png" alt="Humidity Icon" style="width: 200px">
+                    </div>
+                    <div class="data">
+                        <h3>Humidity Value</h3>
+                        <p class="value"><span id="humidity"></span> &#160; %</p>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Daily Productivity Section -->
+    <div id="daily_productivity" class="section">
+        <div class="container search-container" style="align-content: center">
+            <form class="form-inline justify-content-center">
+                <div class="form-group mb-2">
+                    <label for="date" class="sr-only">Date</label>
+                    <input type="date" class="form-control" id="date" placeholder="Select Date">
+                </div>
+                <button type="button" class="btn btn-black mb-2 ml-2" onclick="search()">Search</button>
+
+            </form>
+            <div id="totalPieces" class="mt-3">
+                <!-- Total number of pieces will be displayed here -->
+            </div>
+        </div>
+
+        <div class="container table-container" style="align-content: center">
+            <div class="table-responsive">
+                <table id="pieceCountHistoryTable" class="table table-bordered table-hover">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th>Date</th>
+                        <th>Count</th>
+                    </tr>
+                    </thead>
+                    <tbody id="pieceCountHistoryEl">
+                    <!-- Dynamic content will be inserted here -->
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Temperature Details Section -->
+    <div id="temperature_details" class="section">
+        <div class="container">
+            <label for="datePicker"></label>
+            <input type="date" id="datePicker" class="form-control w-50 mx-auto">
+            <div id="chartContainer"></div>
+        </div>
+    </div>
+
+    <!-- Profile Settings Section -->
+    <div id="profile_settings" class="section">
+        <div class="container_profile">
+            <form id="profileForm">
+                    <img src="image/360_F_767482124_P2kBhb0LBNJzdxzx6SQ2B4b1tfR70QpQ.jpg" alt="Logo" style="width: 200px;height: 200px;margin-left: 180px">
+                <div class="form-group">
+                    <label for="firstname">First Name:</label>
+                    <input type="text" id="firstname" name="firstname" required>
+                </div>
+                <div class="form-group">
+                    <label for="lastname">Last Name:</label>
+                    <input type="text" id="lastname" name="lastname" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="button" class="btn3">Update Profile</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- Add this to the head section of your HTML -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    function showSection(sectionId) {
+
+        const sections = document.querySelectorAll('.section');
+        sections.forEach(section => {
+            section.classList.remove('active');
+        });
+        const selectedSection = document.getElementById(sectionId);
+        if (selectedSection) {
+            selectedSection.classList.add('active');
+        }
+    }
+
+    showSection('main_dashboard');
+</script>
+
+
+<script>
+    function updateCurrentTime() {
+        const now = new Date();
+        const options = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+        document.querySelector('.current-time').innerText = now.toLocaleTimeString(undefined, options);
+    }
+
+    // Update time every second
+    setInterval(updateCurrentTime, 1000);
+
+    // Initial call to set the time immediately
+    updateCurrentTime();
+</script>
+
+<script src="js/dashboard.js"></script>
+<script src="js/fierbaseconfig.js" type="module"></script>
+<script src="js/dailyproductivity.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
 </body>
 </html>
