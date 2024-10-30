@@ -44,7 +44,6 @@
                 height: auto;
                 position: relative;
             }
-
             .sidebar button {
                 text-align: center;
                 padding: 10px;
@@ -92,6 +91,64 @@
         .btn-black:hover {
             background-color: #333; /* Darker shade on hover */
             color: #fff; /* Ensure text remains white on hover */
+        }
+
+        .container_profile {
+            max-width: 600px;
+            margin-left: 450px;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-top: -5px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="password"]:focus {
+            border-color: #474b4b;
+        }
+
+        .btn3 {
+            display: inline-block;
+            width: 100%;
+            padding: 10px;
+            background-color: #474b4b;
+            color: black;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .btn3:hover {
+            background-color: #000000;
+            color: white;
         }
 
     </style>
@@ -206,8 +263,6 @@
             </div>
         </div>
 
-
-
         <div class="container table-container" style="align-content: center">
             <div class="table-responsive">
                 <table id="pieceCountHistoryTable" class="table table-bordered table-hover">
@@ -237,7 +292,28 @@
 
     <!-- Profile Settings Section -->
     <div id="profile_settings" class="section">
-
+        <div class="container_profile">
+            <form id="profileForm">
+                    <img src="image/360_F_767482124_P2kBhb0LBNJzdxzx6SQ2B4b1tfR70QpQ.jpg" alt="Logo" style="width: 200px;height: 200px;margin-left: 180px">
+                <div class="form-group">
+                    <label for="firstname">First Name:</label>
+                    <input type="text" id="firstname" name="firstname" required>
+                </div>
+                <div class="form-group">
+                    <label for="lastname">Last Name:</label>
+                    <input type="text" id="lastname" name="lastname" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="button" class="btn3">Update Profile</button>
+            </form>
+        </div>
     </div>
 </div>
 
