@@ -25,12 +25,12 @@
         .content {
             width: 100%;
             height: 100%;
-            margin-top: 70px;
+            margin-top: 60px;
             padding: 5px;
             margin-left: 200px;
         }
         .section {
-            display: none; /* Hide all sections by default */
+            display: none;
         }
         .active {
             display: block; /* Show active section */
@@ -101,47 +101,55 @@
 
     <!-- Main Dashboard Section -->
     <div id="main_dashboard" class="section active">
-        <div class="dashboard-container">
-            <div class="dashboard-item">
-                <div class="icon">
-                    <img src="path/to/temperature-icon.png" alt="Temperature Icon">
-                </div>
-                <div class="data">
-                    <h3>Current Temperature</h3>
-                    <p class="value">75°C</p>
-                </div>
-            </div>
 
-            <div class="dashboard-item">
-                <div class="icon">
-                    <img src="path/to/pieces-icon.png" alt="Pieces Icon">
-                </div>
-                <div class="data">
-                    <h3>Current Pieces Count</h3>
-                    <p class="value">250</p>
-                </div>
-            </div>
-
-            <div class="dashboard-item">
-                <div class="icon">
-                    <img src="path/to/operation-time-icon.png" alt="Operation Time Icon">
-                </div>
-                <div class="data">
-                    <h3>Operation Time</h3>
-                    <p class="value">5 Hours</p>
-                </div>
-            </div>
-
-            <div class="dashboard-item">
-                <div class="icon">
-                    <img src="path/to/humidity-icon.png" alt="Humidity Icon">
-                </div>
-                <div class="data">
-                    <h3>Humidity Value</h3>
-                    <p class="value">45%</p>
-                </div>
-            </div>
-        </div>
+        <table class="dashboard-table">
+            <tr>
+                <td colspan="3" class="current-time" style="text-align: center; font-size: 1.5em; font-weight: bold;margin-bottom: 20px"></td>
+            </tr>
+            <tr>
+                <td class="dashboard-item">
+                    <div class="icon">
+                        <img src="image/temperature-icon.jpg" alt="Temperature Icon">
+                    </div>
+                    <div class="data">
+                        <h3>Current Temperature</h3>
+                        <p class="value">75°C</p>
+                    </div>
+                </td>
+                <td rowspan="2" style="background-color: #efa0a0;">
+                    <h1>dsdsdsdssdsdsdsdsdsdsdsdsd</h1>
+                </td>
+                <td class="dashboard-item">
+                    <div class="icon">
+                        <img src="image/pngtree-elastic-icon-soft-web-coil-vector-png-image_46057688.jpg" alt="Pieces Icon">
+                    </div>
+                    <div class="data">
+                        <h3>Current Pieces Count</h3>
+                        <p class="value">250</p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="dashboard-item">
+                    <div class="icon">
+                        <img src="image/istockphoto-1358979213-612x612.jpg" alt="Operation Time Icon">
+                    </div>
+                    <div class="data">
+                        <h3>Operation Time</h3>
+                        <p class="value">5 Hours</p>
+                    </div>
+                </td>
+                <td class="dashboard-item">
+                    <div class="icon">
+                        <img src="image/hm.png" alt="Humidity Icon" style="width: 200px">
+                    </div>
+                    <div class="data">
+                        <h3>Humidity Value</h3>
+                        <p class="value">45%</p>
+                    </div>
+                </td>
+            </tr>
+        </table>
     </div>
 
 
@@ -180,17 +188,6 @@
                     <tr><td>2024-10-06</td><td>135</td></tr>
                     <tr><td>2024-10-07</td><td>145</td></tr>
                     <tr><td>2024-10-08</td><td>155</td></tr>
-                    <tr><td>2024-10-09</td><td>160</td></tr>
-                    <tr><td>2024-10-10</td><td>165</td></tr>
-                    <tr><td>2024-10-11</td><td>170</td></tr>
-                    <tr><td>2024-10-12</td><td>175</td></tr>
-                    <tr><td>2024-10-13</td><td>180</td></tr>
-                    <tr><td>2024-10-14</td><td>185</td></tr>
-                    <tr><td>2024-10-15</td><td>190</td></tr>
-                    <tr><td>2024-10-16</td><td>195</td></tr>
-                    <tr><td>2024-10-17</td><td>200</td></tr>
-                    <tr><td>2024-10-18</td><td>205</td></tr>
-                    <tr><td>2024-10-19</td><td>210</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -220,24 +217,38 @@
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- Add this to the head section of your HTML -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
     function showSection(sectionId) {
-        // Hide all sections
+
         const sections = document.querySelectorAll('.section');
         sections.forEach(section => {
             section.classList.remove('active');
         });
-
-        // Show the selected section
         const selectedSection = document.getElementById(sectionId);
         if (selectedSection) {
             selectedSection.classList.add('active');
         }
     }
 
-    // Load the default section (Main Dashboard)
     showSection('main_dashboard');
+</script>
+
+
+<script>
+    function updateCurrentTime() {
+        const now = new Date();
+        const options = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+        document.querySelector('.current-time').innerText = now.toLocaleTimeString(undefined, options);
+    }
+
+    // Update time every second
+    setInterval(updateCurrentTime, 1000);
+
+    // Initial call to set the time immediately
+    updateCurrentTime();
 </script>
 
 <script src="js/dashboard.js"></script>
