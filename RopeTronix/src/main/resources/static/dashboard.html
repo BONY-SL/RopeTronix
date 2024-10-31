@@ -151,6 +151,10 @@
             color: white;
         }
 
+        .alert{
+            display: none;
+        }
+
     </style>
 </head>
 <body>
@@ -184,7 +188,7 @@
         <button type="button" onclick="showSection('daily_productivity')"><i class="bi bi-card-text"></i> Daily Productivity</button>
         <button type="button" onclick="showSection('temperature_details')"><i class="bi bi-thermometer-half"></i> Temperature Details</button>
 <!--        <button type="button" onclick="showSection('system_settings')"><i class="bi bi-gear"></i> System settings</button>-->
-        <button type="button" onclick="showSection('profile_settings')"><i class="bi bi-person-lines-fill"></i> Profile settings</button>
+        <button type="button" onclick="showSection('profile_settings');setUserToForm()"><i class="bi bi-person-lines-fill"></i> Profile settings</button>
     </div>
 </div>
 
@@ -295,6 +299,8 @@
         <div class="container_profile">
             <form id="profileForm">
                     <img src="image/360_F_767482124_P2kBhb0LBNJzdxzx6SQ2B4b1tfR70QpQ.jpg" alt="Logo" style="width: 200px;height: 200px;margin-left: 180px">
+                <div id="errorAlert" class="alert alert-danger" role="alert"></div>
+                <div id="successAlert" class="alert alert-success" role="alert"></div>
                 <div class="form-group">
                     <label for="firstname">First Name:</label>
                     <input type="text" id="firstname" name="firstname" required>
@@ -305,13 +311,13 @@
                 </div>
                 <div class="form-group">
                     <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
+                    <input type="email" id="email" name="email" required readonly>
                 </div>
                 <div class="form-group">
                     <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" required>
+                    <input type="password" id="password" name="password" required readonly>
                 </div>
-                <button type="button" class="btn3">Update Profile</button>
+                <button type="button" class="btn3" onclick="updateUser()">Update Profile</button>
             </form>
         </div>
     </div>

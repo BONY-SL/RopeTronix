@@ -1,13 +1,12 @@
 package com.RopeTronix.RopeTronix.service;
 import com.RopeTronix.RopeTronix.dto.LoginRequestDto;
 import com.RopeTronix.RopeTronix.dto.RegistrationRequestDto;
+import com.RopeTronix.RopeTronix.dto.UpdateUserRequest;
 import com.RopeTronix.RopeTronix.model.User;
 import com.RopeTronix.RopeTronix.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -47,6 +46,23 @@ public class UserService {
         return ResponseEntity.status(HttpStatus.OK).body(getUserDetails);
     }
 
+
+    public ResponseEntity<?> updateUserDetails(UpdateUserRequest updateUserRequest) {
+        Optional<User> getUserDetails = userRepository.findByEmail(updateUserRequest.getEmail());
+
+        if (getUserDetails.isPresent()) {
+            User user = getUserDetails.get();
+
+            user.setFirstname(updateUserRequest.getFirstname());
+            user.setLastname(updateUserRequest.getLastname());
+            user.setId(updateUserRequest.getId());
+            user.setEmail(updateUserRequest.getEmail());
+
+            return ResponseEntity.ok(userRepository.save(user));
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Update Unsuccessful");
+        }
+    }
 
 
 }
