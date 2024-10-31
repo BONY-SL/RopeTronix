@@ -27,7 +27,7 @@
         .content {
             width: 100%;
             height: 100%;
-            margin-top: 60px;
+            margin-top: 25px;
             padding: 5px;
             margin-left: 200px;
         }
@@ -184,6 +184,24 @@
             cursor: not-allowed;
         }
 
+        .status-working {
+            background-color: #ffffff;
+            color: #057505;
+            padding: 5px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 20px;
+        }
+        .status-stopped {
+            background-color: #ffffff;
+            color: #f80a0a;
+            padding: 5px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 20px;
+        }
 
     </style>
 </head>
@@ -245,7 +263,7 @@
                             <span id="tempWarning" class="warning-bubble" style="display: none;">High Temp!</span>
                         </p>
                     </div>
-                </td>
+                    <div id="sensor-status" class="status-working">Working Properly</div>                </td>
                 <td rowspan="2" style="background-color: #efa0a0;">
                 </td>
                 <td class="dashboard-item">
@@ -256,6 +274,7 @@
                         <h3>Current Pieces Count</h3>
                         <p class="value" ><span id="pieceCount"></span></p>
                     </div>
+                    <div id="sensor-status2" class="status-working">Working Properly</div>
                 </td>
             </tr>
             <tr>
@@ -276,6 +295,7 @@
                         <h3>Humidity Value</h3>
                         <p class="value"><span id="humidity"></span> &#160; %</p>
                     </div>
+                    <div id="sensor-status4" class="status-working">Working Properly</div>
                 </td>
             </tr>
         </table>

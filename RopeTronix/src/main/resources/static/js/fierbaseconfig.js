@@ -37,18 +37,73 @@ function formatTime(seconds) {
 let operationTimeCounter = 0;
 let operationTimeInterval;
 
-// Real-time data listener
 const sensorRef = ref(database, "sensors");
+const updateThreshold = 39603800; //
+const currentTime = Date.now();
+let lastUpdatedTime;
+
 onValue(sensorRef, (snapshot) => {
     const data = snapshot.val();
 
+    // Get current timestamp
+
+
     // Update elements with two decimal places
-    humidityEl.textContent = data.humidity ? data.humidity.toFixed(2) : "N/A";
-    temperatureEl.textContent = data.temperature ? data.temperature.toFixed(2) : "N/A";
-    pieceCountEl.textContent = data.piececount || "N/A";
+    humidityEl.textContent = data.humidity !== null ? data.humidity.toFixed(2) : null;
+    temperatureEl.textContent = data.temperature !== null ? data.temperature.toFixed(2) : null;
+    pieceCountEl.textContent = data.piececount || null;
+
+    const statusDiv1 = document.getElementById('sensor-status');
+    const statusDiv2 = document.getElementById('sensor-status2');
+    const statusDiv4 = document.getElementById('sensor-status4');
+
+    lastUpdatedTime = new Date(data.datetime).getTime(); // Convert to milliseconds
+
+
+    // Check if the sensors are responding and if they're within the threshold time
+    const isPieceCountActive = data.piececount !== null && (currentTime - lastUpdatedTime < updateThreshold);
+    const isHumidityActive = data.humidity !== null && (currentTime - lastUpdatedTime< updateThreshold);
+    const isTemperatureActive = data.temperature !== null && (currentTime - lastUpdatedTime < updateThreshold);
+
+    console.log(isPieceCountActive)
+    console.log(isHumidityActive)
+    console.log(isTemperatureActive)
+    console.log(data.piececount)
+    console.log(data.humidity)
+    console.log(data.temperature)
+    console.log(lastUpdatedTime)
+    console.log("c",currentTime)
+
+    // Update piece count status
+    if (isPieceCountActive) {
+        statusDiv2.className = 'status-working';
+        statusDiv2.textContent = 'Working Properly';
+    } else {
+        statusDiv2.className = 'status-stopped';
+        statusDiv2.textContent = 'Stopped';
+    }
+
+    // Update humidity status
+    if (isHumidityActive) {
+        statusDiv4.className = 'status-working';
+        statusDiv4.textContent = 'Working Properly';
+    } else {
+        statusDiv4.className = 'status-stopped';
+        statusDiv4.textContent = 'Stopped';
+    }
+
+    // Update temperature status
+    if (isTemperatureActive) {
+        statusDiv1.className = 'status-working';
+        statusDiv1.textContent = 'Working Properly';
+    } else {
+        statusDiv1.className = 'status-stopped';
+        statusDiv1.textContent = 'Stopped';
+    }
+
 
     // Initialize or reset operation time and start the counter
-    if (data.operationtime) {
+    if (data.operationtime !== null) {
         clearInterval(operationTimeInterval);
         operationTimeCounter = data.operationtime;
 
@@ -58,11 +113,12 @@ onValue(sensorRef, (snapshot) => {
             operationTimeEl.textContent = formatTime(operationTimeCounter);
         }, 1000);
     } else {
-        operationTimeEl.textContent = "N/A";
+        operationTimeEl.textContent = null;
+        clearInterval(operationTimeInterval); // Clear the interval if operation time is stopped
     }
 
     // Display warning if the temperature is greater than 45°C
-    if (data.temperature > 29) {
+    if (data.temperature > 45) {
         tempWarningEl.style.display = "inline";
     } else {
         tempWarningEl.style.display = "none";
