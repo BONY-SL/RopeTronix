@@ -1,7 +1,7 @@
 
 spring:
   datasource:
-    url: postgresql://postgres:xdgWDzbMweyQJWswsZIKRfLPPiYfPrKJ@postgres.railway.internal:5432/railway?createDatabaseIfNotExist=true
+    url: postgresql://postgres:xdgWDzbMweyQJWswsZIKRfLPPiYfPrKJ@postgres.railway.internal:5432/railway
     username: postgres
     password: xdgWDzbMweyQJWswsZIKRfLPPiYfPrKJ
     driver-class-name: org.postgresql.Driver
