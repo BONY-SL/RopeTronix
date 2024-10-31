@@ -202,6 +202,112 @@
             font-weight: bold;
             font-size: 20px;
         }
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #4ab42e;
+            color: #333;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 1000;
+            font-size: 16px;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .notification.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .notification.hidden {
+            display: none;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: #333;
+            cursor: pointer;
+        }
+
+        #errors {
+            margin-top: 50px;
+            margin-left: 70px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 4 equal columns */
+            gap: 20px; /* Space between the cards */
+        }
+
+        .card {
+            background: #7e7e7e;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s;
+            height: 170px;
+            width: 300px;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        h3 {
+            margin: 10px 0;
+            font-size: 1.2em;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .switch-label {
+            cursor: pointer;
+            height: 34px;
+            width: 60px;
+            background-color: green; /* Default ON color */
+            display: block;
+            border-radius: 34px;
+            position: relative;
+            transition: background-color 0.3s;
+        }
+
+        .switch-label:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+
+        input:checked + .switch-label {
+            background-color: red; /* Color for OFF state */
+        }
+
+        input:checked + .switch-label:before {
+            transform: translateX(15px); /* Move the circle to the right */
+        }
 
     </style>
 </head>
@@ -237,9 +343,10 @@
         <button type="button" onclick="showSection('temperature_details')"><i class="bi bi-thermometer-half"></i> Temperature Details</button>
 <!--        <button type="button" onclick="showSection('system_settings')"><i class="bi bi-gear"></i> System settings</button>-->
         <button type="button" onclick="showSection('profile_settings');setUserToForm()"><i class="bi bi-person-lines-fill"></i> Profile settings</button>
+        <button type="button" onclick="showSection('errors_show')"><i class="bi bi-bug"></i> Break Downs</button>
+
     </div>
 </div>
-
 <div class="content">
 
 </div>
@@ -247,6 +354,11 @@
 
     <!-- Main Dashboard Section -->
     <div id="main_dashboard" class="section active">
+
+        <div id="notification" class="notification hidden">
+            <span id="notificationMessage">Repair the machine in another hour.</span>
+            <button class="close-btn" onclick="closeNotification()">×</button>
+        </div>
 
         <table class="dashboard-table">
             <tr>
@@ -341,7 +453,7 @@
     </div>
 
     <!-- Temperature Details Section -->
-    <div id="temperature_details" class="section">
+    <div id="temperature_details" class="section" style="margin-top: 50px">
         <div class="container">
             <label for="datePicker"></label>
             <input type="date" id="datePicker" class="form-control w-50 mx-auto">
@@ -374,6 +486,87 @@
                 </div>
                 <button type="button" class="btn3" onclick="updateUser()">Update Profile</button>
             </form>
+        </div>
+    </div>
+    <div id="errors_show" class="section">
+        <div id="errors" class="card-container">
+            <div class="card">
+                <h3>Feedms IR Sensor</h3>
+                <div class="switch">
+                    <input type="checkbox" id="sensor1" >
+                    <label for="sensor1" class="switch-label"></label>
+                </div>
+            </div>
+            <div class="card">
+                <h3>Stepper Motor 1</h3>
+                <div class="switch">
+                    <input type="checkbox" id="motor1" >
+                    <label for="motor1" class="switch-label"></label>
+                </div>
+            </div>
+            <div class="card">
+                <h3>Stepper Motor 2</h3>
+                <div class="switch">
+                    <input type="checkbox" id="motor2" >
+                    <label for="motor2" class="switch-label"></label>
+                </div>
+            </div>
+            <div class="card">
+                <h3>Number Pad</h3>
+                <div class="switch">
+                    <input type="checkbox" id="numberPad" >
+                    <label for="numberPad" class="switch-label"></label>
+                </div>
+            </div>
+            <div class="card">
+                <h3>LCD Display</h3>
+                <div class="switch">
+                    <input type="checkbox" id="lcdDisplay" >
+                    <label for="lcdDisplay" class="switch-label"></label>
+                </div>
+            </div>
+            <div class="card">
+                <h3>Temperature Controller</h3>
+                <div class="switch">
+                    <input type="checkbox" id="tempController" >
+                    <label for="tempController" class="switch-label"></label>
+                </div>
+            </div>
+            <div class="card">
+                <h3>SSR</h3>
+                <div class="switch">
+                    <input type="checkbox" id="ssr" >
+                    <label for="ssr" class="switch-label"></label>
+                </div>
+            </div>
+            <div class="card">
+                <h3>Conveyor Motor</h3>
+                <div class="switch">
+                    <input type="checkbox" id="conveyorMotor" >
+                    <label for="conveyorMotor" class="switch-label"></label>
+                </div>
+            </div>
+            <div class="card">
+                <h3>Counting IR Sensor</h3>
+                <div class="switch">
+                    <input type="checkbox" id="countingSensor" >
+                    <label for="countingSensor" class="switch-label"></label>
+                </div>
+            </div>
+            <div class="card">
+                <h3>ESP 32 Cam Module</h3>
+                <div class="switch">
+                    <input type="checkbox" id="espCam" >
+                    <label for="espCam" class="switch-label"></label>
+                </div>
+            </div>
+            <div class="card">
+                <h3>Temperature Sensor</h3>
+                <div class="switch">
+                    <input type="checkbox" id="tempSensor" >
+                    <label for="tempSensor" class="switch-label"></label>
+                </div>
+            </div>
         </div>
     </div>
 </div>

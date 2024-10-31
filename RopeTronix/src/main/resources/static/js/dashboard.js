@@ -1,4 +1,3 @@
-
 function logOut() {
 
     Swal.fire({
@@ -65,7 +64,7 @@ function setUserToForm() {
     }
 }
 
-function updateUser() {
+ function updateUser() {
     const localStorageUser = getUser();
 
     if (!localStorageUser) {
@@ -129,3 +128,10 @@ function updateUser() {
 window.onload = function() {
     setUserToForm();
 };
+
+
+// Function to close the notification manually
+ function closeNotification() {
+    const notification = document.getElementById("notification");
+    notification.classList.remove("visible");
+}

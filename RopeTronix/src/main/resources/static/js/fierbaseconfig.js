@@ -1,7 +1,5 @@
 import {initializeApp} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
 import {getDatabase, onValue, ref} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
-
-
 const firebaseConfig = {
     apiKey: "AIzaSyAeYUDXecF-kqVMZ_90iHFEfh4gP-fclWM",
     authDomain: "testiot-2d177.firebaseapp.com",
@@ -31,6 +29,22 @@ function formatTime(seconds) {
     const minutes = Math.floor((seconds % 3600) / 60);
     const remainingSeconds = seconds % 60;
     return `${hours}h : ${minutes}m : ${remainingSeconds}s`;
+}
+function showNotification(message) {
+    const notification = document.getElementById("notification");
+    const notificationMessage = document.getElementById("notificationMessage");
+
+    // Set the notification message
+    notificationMessage.textContent = message;
+
+    // Display the notification
+    notification.classList.remove("hidden");
+    notification.classList.add("visible");
+
+    // Automatically hide the notification after 5 seconds
+    setTimeout(() => {
+        notification.classList.remove("visible");
+    }, 5000);
 }
 
 // Initialize counter for operation time
@@ -65,14 +79,6 @@ onValue(sensorRef, (snapshot) => {
     const isHumidityActive = data.humidity !== null && (currentTime - lastUpdatedTime< updateThreshold);
     const isTemperatureActive = data.temperature !== null && (currentTime - lastUpdatedTime < updateThreshold);
 
-    console.log(isPieceCountActive)
-    console.log(isHumidityActive)
-    console.log(isTemperatureActive)
-    console.log(data.piececount)
-    console.log(data.humidity)
-    console.log(data.temperature)
-    console.log(lastUpdatedTime)
-    console.log("c",currentTime)
 
     // Update piece count status
     if (isPieceCountActive) {
@@ -102,19 +108,32 @@ onValue(sensorRef, (snapshot) => {
     }
 
 
-    // Initialize or reset operation time and start the counter
-    if (data.operationtime !== null) {
-        clearInterval(operationTimeInterval);
-        operationTimeCounter = data.operationtime;
+// Only update when operation time stops (as detected in your sensor onValue callback)
+    if (currentTime - lastUpdatedTime >= updateThreshold) {
 
-        // Update and increment the operation time every second
-        operationTimeInterval = setInterval(() => {
-            operationTimeCounter++;
-            operationTimeEl.textContent = formatTime(operationTimeCounter);
-        }, 1000);
-    } else {
+        clearInterval(operationTimeInterval);
         operationTimeEl.textContent = null;
-        clearInterval(operationTimeInterval); // Clear the interval if operation time is stopped
+
+    } else {
+
+        if (data.operationtime !== null) {
+
+           console.log("Sending operationTimeCounter:", operationTimeCounter);
+
+            // Check for the specific condition
+            if (operationTimeCounter > 7200 && operationTimeCounter < 7203) {
+                // Call the function to show the notification
+                showNotification("Repair the machine in another hour.");
+            }
+
+            clearInterval(operationTimeInterval);
+            operationTimeCounter = data.operationtime;
+
+            operationTimeInterval = setInterval(() => {
+                operationTimeCounter++;
+                operationTimeEl.textContent = formatTime(operationTimeCounter);
+            }, 1000);
+        }
     }
 
     // Display warning if the temperature is greater than 45°C

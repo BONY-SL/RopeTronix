@@ -2,9 +2,12 @@ package com.RopeTronix.RopeTronix.service;
 import com.RopeTronix.RopeTronix.dto.LoginRequestDto;
 import com.RopeTronix.RopeTronix.dto.RegistrationRequestDto;
 import com.RopeTronix.RopeTronix.dto.UpdateUserRequest;
+import com.RopeTronix.RopeTronix.model.OperatingTime;
 import com.RopeTronix.RopeTronix.model.User;
+import com.RopeTronix.RopeTronix.repository.OperatingRepository;
 import com.RopeTronix.RopeTronix.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -17,6 +20,8 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
+
+    private final OperatingRepository operatingTimeRepository;
 
     public void register(RegistrationRequestDto requestDto){
 
@@ -63,6 +68,15 @@ public class UserService {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Update Unsuccessful");
         }
     }
+
+    public void saveOperationTime(int operationTimeCounter) {
+        OperatingTime operatingTime = OperatingTime.builder()
+                .value(String.valueOf(operationTimeCounter)) // Convert counter to string
+                .build();
+        System.out.println("Saving OperatingTime entity with value: " + operatingTime.getValue()); // Debug line
+        operatingTimeRepository.save(operatingTime);
+    }
+
 
 
 }

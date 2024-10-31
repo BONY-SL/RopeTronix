@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/repotronix")
 @RequiredArgsConstructor
@@ -38,4 +40,12 @@ public class LoginController {
         return userService.updateUserDetails(updateUserRequest);
 
     }
+
+    @PostMapping("/save")
+    public void saveOperationTime(@RequestBody Map<String, Integer> request) {
+        int operationTimeCounter = request.get("operationTimeCounter");
+        System.out.println("Received operation time counter: " + operationTimeCounter); // Debug line
+        userService.saveOperationTime(operationTimeCounter);
+    }
+
 }

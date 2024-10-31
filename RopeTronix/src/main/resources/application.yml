@@ -1,9 +1,10 @@
+
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/tronix?createDatabaseIfNotExist=true
-    username: root
-    password: Danidu#678@mysql
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: postgresql://postgres:xdgWDzbMweyQJWswsZIKRfLPPiYfPrKJ@postgres.railway.internal:5432/railway?createDatabaseIfNotExist=true
+    username: postgres
+    password: xdgWDzbMweyQJWswsZIKRfLPPiYfPrKJ
+    driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
       ddl-auto: update
@@ -11,8 +12,8 @@ spring:
     properties:
       hibernate:
         format_sql: true
-    database: mysql
-    database-platform: org.hibernate.dialect.MySQLDialect
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
 server:
   port: 8080
 
