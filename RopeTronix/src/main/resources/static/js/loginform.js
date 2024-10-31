@@ -155,12 +155,3 @@ loginBtn.addEventListener('click', () => {
 function saveUser(user) {
     localStorage.setItem('user', JSON.stringify(user));
 }
-
-function getUser() {
-    const user = localStorage.getItem('user');
-    return user ? JSON.parse(user) : null;
-}
-
-function clearUser() {
-    localStorage.removeItem('user');
-}

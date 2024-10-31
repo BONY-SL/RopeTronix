@@ -2,11 +2,14 @@ package com.RopeTronix.RopeTronix.controller;
 
 import com.RopeTronix.RopeTronix.dto.LoginRequestDto;
 import com.RopeTronix.RopeTronix.dto.RegistrationRequestDto;
+import com.RopeTronix.RopeTronix.dto.UpdateUserRequest;
 import com.RopeTronix.RopeTronix.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("/repotronix")
@@ -30,4 +33,19 @@ public class LoginController {
         return ResponseEntity.ok(HttpStatus.OK);
 
     }
+
+    @PutMapping("/updateUser")
+    public ResponseEntity<?> updateUserDetails(@RequestBody UpdateUserRequest updateUserRequest){
+
+        return userService.updateUserDetails(updateUserRequest);
+
+    }
+
+    @PostMapping("/save")
+    public void saveOperationTime(@RequestBody Map<String, Integer> request) {
+        int operationTimeCounter = request.get("operationTimeCounter");
+        System.out.println("Received operation time counter: " + operationTimeCounter); // Debug line
+        userService.saveOperationTime(operationTimeCounter);
+    }
+
 }

@@ -1,8 +1,9 @@
+
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/tronix
+    url: postgresql://postgres:xdgWDzbMweyQJWswsZIKRfLPPiYfPrKJ@postgres.railway.internal:5432/railway?createDatabaseIfNotExist=true
     username: postgres
-    password: Danidu#678@postgres
+    password: xdgWDzbMweyQJWswsZIKRfLPPiYfPrKJ
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -15,3 +16,4 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 server:
   port: 8080
+
