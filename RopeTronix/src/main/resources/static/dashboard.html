@@ -155,6 +155,36 @@
             display: none;
         }
 
+        #paginationControls {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #paginationControls button {
+            background-color: #0a0a0a;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            margin: 0 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        #paginationControls button:hover {
+            background-color: #767677;
+            color: black;
+        }
+
+        #paginationControls button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+
+
     </style>
 </head>
 <body>
@@ -277,9 +307,14 @@
                     </tr>
                     </thead>
                     <tbody id="pieceCountHistoryEl">
-                    <!-- Dynamic content will be inserted here -->
+
                     </tbody>
                 </table>
+                <div id="paginationControls">
+                    <button id="prevBtn" onclick="changePage(-1)">Previous</button>
+                    <span id="pageInfo"></span>
+                    <button id="nextBtn" onclick="changePage(1)">Next</button>
+                </div>
 
             </div>
         </div>

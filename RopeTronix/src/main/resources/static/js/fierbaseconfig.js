@@ -74,35 +74,81 @@ const pieceCountHistoryEl = document.querySelector("#pieceCountHistoryEl");
 
 // Historical piece count data listener
 const pieceRef = ref(database, "pieces");
+let data = []; // Array to hold the fetched data
+let currentPage = 1;
+const rowsPerPage = 7;
+
 onValue(pieceRef, (snapshot) => {
-    pieceCountHistoryEl.innerHTML = "";  // Clear old data
+    data = []; // Clear old data
 
     snapshot.forEach(dateSnapshot => {
         const date = dateSnapshot.key;
-            const count = dateSnapshot.child("count").val();
-            const datetime = dateSnapshot.child("datetime").val();
+        const count = dateSnapshot.child("count").val();
+        const datetime = dateSnapshot.child("datetime").val();
 
-            console.log(date);
-            console.log(count)
-
-            // Create a new row
-            const row = document.createElement("tr");
-
-            // Create cells for date, time, and count
-            const dateCell = document.createElement("td");
-            dateCell.textContent = date;  // Set the date
-
-            const countCell = document.createElement("td");
-            countCell.textContent = count;
-
-            // Append cells to the row
-            row.appendChild(dateCell);
-            row.appendChild(countCell);
-
-            // Append the row to the table body
-            pieceCountHistoryEl.appendChild(row);
+        // Store the data in the array
+        data.push({ date, count, datetime });
     });
+
+    renderTable(); // Render the table with the initial data
 });
+
+// Function to render the table with pagination
+function renderTable() {
+    const start = (currentPage - 1) * rowsPerPage;
+    const end = start + rowsPerPage;
+    const paginatedItems = data.slice(start, end);
+
+    pieceCountHistoryEl.innerHTML = ""; // Clear existing rows
+
+    paginatedItems.forEach(item => {
+        // Create a new row
+        const row = document.createElement("tr");
+
+        // Create cells for date and count
+        const dateCell = document.createElement("td");
+        dateCell.textContent = item.date; // Set the date
+
+        const countCell = document.createElement("td");
+        countCell.textContent = item.count;
+
+        // Append cells to the row
+        row.appendChild(dateCell);
+        row.appendChild(countCell);
+
+        // Append the row to the table body
+        pieceCountHistoryEl.appendChild(row);
+    });
+
+    updatePaginationControls();
+}
+
+// Function to update pagination controls
+function updatePaginationControls() {
+    const totalPages = Math.ceil(data.length / rowsPerPage);
+    document.getElementById("pageInfo").innerText = `Page ${currentPage} of ${totalPages}`;
+    document.getElementById("prevBtn").disabled = currentPage === 1;
+    document.getElementById("nextBtn").disabled = currentPage === totalPages;
+}
+
+// Function to change the page
+function changePage(direction) {
+    const totalPages = Math.ceil(data.length / rowsPerPage);
+    if (direction === -1 && currentPage > 1) {
+        currentPage--;
+    } else if (direction === 1 && currentPage < totalPages) {
+        currentPage++;
+    }
+    renderTable();
+}
+
+// Initialize the pagination controls in your HTML
+document.getElementById("paginationControls").innerHTML = `
+    <button id="prevBtn" onclick="changePage(-1)">Previous</button>
+    <span id="pageInfo"></span>
+    <button id="nextBtn" onclick="changePage(1)">Next</button>
+`;
+
 
 window.onload = function () {
 
