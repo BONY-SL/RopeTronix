@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+
+*.yml
+RopeTronix/src/main/resources/static/js/fierbaseconfig.js
