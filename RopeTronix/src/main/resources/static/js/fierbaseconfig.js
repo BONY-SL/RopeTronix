@@ -267,7 +267,7 @@ window.onload = function () {
         fetchTemperatureData(selectedDate);
     });
 
-    // Fetch temperature data for a specific date
+
     function fetchTemperatureData(selectedDate) {
         const tempRef = ref(database, `tempreture/${selectedDate}`);
         onValue(tempRef, (snapshot) => {
