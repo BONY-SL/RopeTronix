@@ -1,5 +1,5 @@
   <h1>RopeTronix</h1>
-    <p>RopeTronix is an advanced IoT-enabled system designed for the automated cutting of elastic ropes, integrated with real-time defect detection capabilities. This system leverages modern technologies, including Spring Boot, WebSockets, and IoT modules, to monitor and process data in real-time, ensuring precision and quality in rope cutting operations.</p>
+    <p>RopeTronix is an advanced IoT-enabled system designed for the automated cutting of elastic ropes, integrated with real-time defect detection capabilities. This system leverages modern technologies, including Spring Boot, Firebase, and IoT modules, to monitor and process data in real-time, ensuring precision and quality in rope cutting operations.</p>
     <h2>Project Description</h2>
     <p>This project is a web application for real-time data detection in an elastic rope cutting machine. It uses Java Spring Boot for the backend and JavaScript, Bootstrap, CSS, and HTML for the frontend. Firebase is integrated to handle real-time data, which is collected from sensors connected to an Arduino.</p>
     <h2>Technologies Used</h2>
