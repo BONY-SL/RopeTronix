@@ -1,15 +1,5 @@
 import {initializeApp} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
 import {getDatabase, onValue, ref} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
-const firebaseConfig = {
-    apiKey: "AIzaSyAeYUDXecF-kqVMZ_90iHFEfh4gP-fclWM",
-    authDomain: "testiot-2d177.firebaseapp.com",
-    databaseURL: "https://testiot-2d177-default-rtdb.firebaseio.com",
-    projectId: "testiot-2d177",
-    storageBucket: "testiot-2d177.appspot.com",
-    messagingSenderId: "900432144588",
-    appId: "1:900432144588:web:b1d0fe0d523e012264ba69",
-    measurementId: "G-GSQ32P8TWY"
-};
 
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
