@@ -28,12 +28,6 @@
         <li>Follow the instructions in the project to set up the backend and frontend, and connect to Firebase.</li>
     </ol>
 
-   <h2>Usage</h2>
-    <ol>
-        <li>Start the backend server with Spring Boot.</li>
-        <li>Open the frontend application in a browser.</li>
-        <li>Ensure the Arduino is connected and collecting data.</li>
-    </ol>
 
 
 ![image](https://github.com/user-attachments/assets/432350c5-823d-40ec-b373-c66f93b933a3)
